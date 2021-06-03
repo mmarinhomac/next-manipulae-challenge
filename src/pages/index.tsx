@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { RiSearchLine } from 'react-icons/ri';
@@ -14,8 +15,7 @@ import {
   InputBox, 
   CarouselMenu,
   CarouselItem 
-} from './styles';
-import { useState } from 'react';
+} from '../styles/home.styles';
 
 export default function Home({ initialTracks }) {
   const [searchTimeInstance, setSearchTimeInstance] = useState(null);
