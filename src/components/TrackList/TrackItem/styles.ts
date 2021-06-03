@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const TrackItemBase = styled.div`
   width: 100%;
@@ -38,6 +38,15 @@ interface TrackAuxInfoProps {
   isFavorite: boolean;
 }
 
+const favoriteSelected = keyframes`
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(1.5, 1.5);
+  }
+`;
+
 export const TrackAuxInfo = styled.div<TrackAuxInfoProps>`
   display: flex;
   align-items: center;
@@ -57,6 +66,7 @@ export const TrackAuxInfo = styled.div<TrackAuxInfoProps>`
         props.isFavorite &&
         css`
           color: #f72585;
+          animation: ${favoriteSelected} 100ms;
         `}
     }
   }

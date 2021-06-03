@@ -1,13 +1,13 @@
 import styled, { css, keyframes } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
 `;
 
-export const ContainerAlignContent = styled.div`
+export const ContainerAlignContent = styled.section`
   max-width: 1120px;
   width: 100%;
   height: 100%;
@@ -51,7 +51,7 @@ const loadingSvg = keyframes`
 `;
 
 export const InputBox = styled.div<InputBoxProps>`
-  margin-top: 2rem;
+  margin: 2rem 0 2.5rem 0;
   padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
@@ -95,17 +95,46 @@ export const InputBox = styled.div<InputBoxProps>`
   }
 `;
 
-export const CarouselMenu = styled.div`
-  margin: 2.5rem 0 2rem 0;
+interface CarouselMenuProps {
+  appear: boolean;
+}
+
+export const CarouselMenu = styled.div<CarouselMenuProps>`
+  margin-bottom: 3rem;
   display: inline-flex;
   gap: 2rem;
+  ${props => props.appear &&
+    css`
+      display: none;
+    `}
 `;
 
 interface CarouselItemProps {
-  isActive?: boolean;
+  isActive: string;
+  optionMenu: string;
 }
 
 export const CarouselItem = styled.button<CarouselItemProps>`
+  display: flex;
+  justify-content: center;
   font-size: 1.25rem;
-  font-weight: ${props => props.isActive ? '700' : '400'};
+  font-weight: ${props => props.isActive === props.optionMenu ? '700' : '400'};
+  position: relative;
+  ${props =>
+    props.isActive === props.optionMenu &&
+    css`
+      & > div {
+        display: flex;
+      }
+    `}
+`;
+
+export const CustomIndicator = styled.div`
+  position: absolute;
+  display: none;
+  width: 3rem;
+  height: 0.25rem;
+  background: rgb(92,32,166);
+  background: linear-gradient(90deg, rgba(92,32,166,1) 0%, rgba(181,114,216,1) 100%);
+  bottom: -1rem;
 `;

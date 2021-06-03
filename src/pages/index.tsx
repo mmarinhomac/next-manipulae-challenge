@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
@@ -8,25 +9,30 @@ import deezer from '../services/deezer';
 import next from '../services/next';
 
 import { TrackList } from '../components/TrackList';
+import { IState } from '../store';
+import { ITrack } from '../store/modules/favoriteTracks/types';
 
 import { 
   Container, 
   ContainerAlignContent, 
   InputBox, 
   CarouselMenu,
-  CarouselItem 
+  CarouselItem,
+  CustomIndicator
 } from '../styles/home.styles';
 
 export default function Home({ initialTracks }) {
+  const favoriteTracks = useSelector<IState, ITrack[]>(state => state.favoriteTracks.data);
+
   const [searchTimeInstance, setSearchTimeInstance] = useState(null);
   const [initialDataTracks, setInitialDataTracks] = useState(null);
   const [searchData, setSearchData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [menu, setMenu] = useState('most_popular');
 
   function handleSearch(evt) {
     setLoading(true);
     const value = evt.target.value;
-    console.log('loading...')
     // Clear old times instances
     if (searchTimeInstance !== null) {
       clearTimeout(searchTimeInstance);
@@ -80,16 +86,32 @@ export default function Home({ initialTracks }) {
           </InputBox>
         </header>
 
-        <CarouselMenu>
-          <CarouselItem isActive>
+        <CarouselMenu appear={!!searchData}>
+          <CarouselItem 
+            type="button" 
+            isActive={menu}
+            optionMenu='most_popular'
+            onClick={() => setMenu('most_popular')}
+          >
             Most popular
+            <CustomIndicator />
           </CarouselItem>
-          <CarouselItem>
+          <CarouselItem 
+            type="button"
+            isActive={menu}
+            optionMenu='favorites'
+            onClick={() => setMenu('favorites')}
+          >
             Favoritos
+            <CustomIndicator />
           </CarouselItem>
         </CarouselMenu>
 
-        <TrackList data={searchData ? searchData : initialTracks}/>
+        <TrackList data={searchData ? searchData : 
+          (menu === 'most_popular' ? initialTracks:
+          favoriteTracks)
+          }
+        />
       </ContainerAlignContent>
     </Container>
   )
@@ -107,9 +129,10 @@ export const getStaticProps: GetStaticProps = async () => {
       id: track.id,
       title: titleValidated,
       artist: track.artist.name,
-      duration: Number(
-        String(track.duration / 60).substring(0, indexAuxDuration + 3)
-      ).toFixed(2),
+      duration: String(Number(
+          String(track.duration / 60).substring(0, indexAuxDuration + 3)
+        ).toFixed(2)
+        ).replace('.', ':'),
       image: track.album.cover_medium,
       preview: track.preview
     }

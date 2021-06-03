@@ -1,4 +1,4 @@
-import { TrackItem } from '../TrackItem';
+import { TrackItem } from './TrackItem';
 
 import { Container } from './styles';
 
