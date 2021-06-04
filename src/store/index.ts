@@ -1,13 +1,29 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 
-import { IFavoriteTracksState } from './modules/favoriteTracks/types';
+import { IFavoriteTracksState } from './modules/favorites/types';
+import { IPlayerState } from './modules/player/types';
 
 import rootReducer from './modules/rootReducer';
+import rootSaga from './modules/rootSaga';
 
 export interface IState {
-  favoriteTracks: IFavoriteTracksState
+  favorites: IFavoriteTracksState,
+  player: IPlayerState
 }
 
-const store = createStore(rootReducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [sagaMiddleware];
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(...middlewares)
+  )
+);
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

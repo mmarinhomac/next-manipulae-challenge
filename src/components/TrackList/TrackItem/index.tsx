@@ -3,17 +3,29 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
-import { addTrackToFavorite } from '../../../store/modules/favoriteTracks/actions';
-import { removeTrackToFavorite } from '../../../store/modules/favoriteTracks/actions';
+import { addTrackToFavorite } from '../../../store/modules/favorites/actions';
+import { removeTrackToFavorite } from '../../../store/modules/favorites/actions';
+import { openPlayerRequest } from '../../../store/modules/player/actions';
 
 import { IState } from '../../../store';
-import { ITrack } from '../../../store/modules/favoriteTracks/types';
+import { ITrack } from '../../../store/modules/favorites/types';
 
-import { TrackItemBase, TrackInfo, TrackAuxInfo } from './styles';
+interface TrackItemProps {
+  track: ITrack;
+}
 
-export function TrackItem({ track }) {
-  const favoriteTracks = useSelector<IState, ITrack[]>(state => state.favoriteTracks.data);
+import { 
+  TrackItemBase, 
+  ButtonStartPlayer, 
+  TrackInfo, 
+  TrackAuxInfo,
+  ButtonFavorite
+} from './styles';
+
+export function TrackItem({ track }: TrackItemProps) {
   const dispatch = useDispatch();
+  
+  const favorites = useSelector<IState, ITrack[]>(state => state.favorites.data);
 
   const [favorite, setFavorite] = useState(false);
 
@@ -25,34 +37,39 @@ export function TrackItem({ track }) {
     }
   }, [favorite, dispatch]);
 
+  const handlePlayer = useCallback(() => {
+    dispatch(openPlayerRequest(track));
+  }, [dispatch]);
+
   useEffect(() => {
-    const flag = favoriteTracks.filter(item => item.id === track.id);
+    const flag = favorites.filter(item => item.id === track.id);
     if (flag.length > 0) {
       setFavorite(true);
     } else {
       setFavorite(false);
     }
-  }, [favoriteTracks]);
+  }, [favorites]);
   
   return (
     <TrackItemBase>
-        <img src={track.image} alt="trackImage" />
+        <ButtonStartPlayer type="button" onClick={handlePlayer}>
+          <img src={track.image_medium} alt="trackImage" />
 
-        <div>
-          <TrackInfo>
-            <p>{track.title}</p>
-            <p>by: {track.artist}</p>
-          </TrackInfo>
+          <div>
+            <TrackInfo>
+              <p>{track.title}</p>
+              <p>by: {track.artist}</p>
+            </TrackInfo>
 
-          <TrackAuxInfo isFavorite={!!favorite}>
-            <span>{track.duration}</span>
-
-            <button type="button" onClick={handleFavorite}>
-              {!favorite && <MdFavoriteBorder />}
-              {favorite && <MdFavorite />}
-            </button>
-          </TrackAuxInfo>
-        </div>
+            <TrackAuxInfo>
+              <span>{track.duration}</span>
+            </TrackAuxInfo>
+          </div>
+        </ButtonStartPlayer>
+        <ButtonFavorite type="button" isFavorite={!!favorite} onClick={handleFavorite}>
+          {!favorite && <MdFavoriteBorder />}
+          {favorite && <MdFavorite />}
+        </ButtonFavorite>
     </TrackItemBase>
   );
 }

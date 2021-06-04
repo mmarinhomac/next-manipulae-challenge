@@ -7,10 +7,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const response = await deezer.get(`/search?q=${q}`);
     
-    const data = response.data.data.map(result => {
+    const data = response.data.data.map((result, index) => {
       const indexAuxDuration = String(result.duration / 60).indexOf('.');
-      const titleValidated = result.title.length > 30 ? 
-        String(result.title).substring(0, 30) + '...' :
+      const limit = String(result.title).indexOf(' ') === -1 ? 10 : 30;
+      const titleValidated = result.title.length > limit ? 
+        String(result.title).substring(0, limit) + '...' :
         result.title;
       return {
         id: result.id,
@@ -20,7 +21,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             String(result.duration / 60).substring(0, indexAuxDuration + 3)
           ).toFixed(2)
           ).replace('.', ':'),
-        image: result.album.cover_medium,
+        image_medium: result.album.cover_medium,
+        image_big: result.album.cover_xl,
         preview: result.preview
       }
     });

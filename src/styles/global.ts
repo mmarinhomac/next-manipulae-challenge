@@ -7,10 +7,8 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  @media (max-width: 1280px) {
-    html {
-      font-size: 100%;
-    }
+  html {
+    font-size: 100%;
   }
 
   @media (max-width: 1024px) {

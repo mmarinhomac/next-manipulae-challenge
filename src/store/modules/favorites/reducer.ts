@@ -7,7 +7,7 @@ const INITIAL_STATE: IFavoriteTracksState = {
   data: []
 }
 
-const tracks: Reducer<IFavoriteTracksState> = (state = INITIAL_STATE, action) => {
+const favorites: Reducer<IFavoriteTracksState> = (state = INITIAL_STATE, action) => {
   return produce(state, draft => {
     switch (action.type) {
       case 'ADD_TRACK_TO_FAVORITE': {
@@ -30,4 +30,4 @@ const tracks: Reducer<IFavoriteTracksState> = (state = INITIAL_STATE, action) =>
   });
 }
 
-export default tracks;
+export default favorites;

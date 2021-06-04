@@ -3,7 +3,8 @@ export interface ITrack {
   title: string;
   artist: string;
   duration: number;
-  image: string;
+  image_medium: string;
+  image_big: string;
   preview: string;
 }
 

@@ -4,7 +4,7 @@ export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 `;
 
 export const ContainerAlignContent = styled.section`
@@ -76,6 +76,7 @@ export const InputBox = styled.div<InputBoxProps>`
   input {
     margin-left: 1rem;
     width: 100%;
+    font-size: 1.05rem;
 
     &:focus {
       outline: none;
@@ -100,7 +101,7 @@ interface CarouselMenuProps {
 }
 
 export const CarouselMenu = styled.div<CarouselMenuProps>`
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   display: inline-flex;
   gap: 2rem;
   ${props => props.appear &&
@@ -117,7 +118,7 @@ interface CarouselItemProps {
 export const CarouselItem = styled.button<CarouselItemProps>`
   display: flex;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: ${props => props.isActive === props.optionMenu ? '700' : '400'};
   position: relative;
   ${props =>

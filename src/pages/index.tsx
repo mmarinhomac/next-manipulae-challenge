@@ -9,8 +9,11 @@ import deezer from '../services/deezer';
 import next from '../services/next';
 
 import { TrackList } from '../components/TrackList';
+import { Player } from '../components/Player';
+
 import { IState } from '../store';
-import { ITrack } from '../store/modules/favoriteTracks/types';
+import { ITrack } from '../store/modules/favorites/types';
+import { IPlayerState } from '../store/modules/player/types';
 
 import { 
   Container, 
@@ -22,7 +25,8 @@ import {
 } from '../styles/home.styles';
 
 export default function Home({ initialTracks }) {
-  const favoriteTracks = useSelector<IState, ITrack[]>(state => state.favoriteTracks.data);
+  const favorites = useSelector<IState, ITrack[]>(state => state.favorites.data);
+  const player = useSelector<IState, IPlayerState>(state => state.player);
 
   const [searchTimeInstance, setSearchTimeInstance] = useState(null);
   const [initialDataTracks, setInitialDataTracks] = useState(null);
@@ -109,9 +113,11 @@ export default function Home({ initialTracks }) {
 
         <TrackList data={searchData ? searchData : 
           (menu === 'most_popular' ? initialTracks:
-          favoriteTracks)
+          favorites)
           }
         />
+
+        {player.status === 'opened' && <Player />}
       </ContainerAlignContent>
     </Container>
   )
@@ -120,10 +126,11 @@ export default function Home({ initialTracks }) {
 export const getStaticProps: GetStaticProps = async () => {
   const response = await deezer.get('/chart/tracks');
 
-  const initialTracks = response.data.tracks.data.map(track => {
+  const initialTracks = response.data.tracks.data.map((track, index) => {
     const indexAuxDuration = String(track.duration / 60).indexOf('.');
-    const titleValidated = track.title.length > 30 ? 
-      String(track.title).substring(0, 30) + '...' :
+    const limit = String(track.title).indexOf(' ') === -1 ? 10 : 30;
+    const titleValidated = track.title.length > limit ? 
+      String(track.title).substring(0, limit) + '...' :
       track.title;
     return {
       id: track.id,
@@ -133,7 +140,8 @@ export const getStaticProps: GetStaticProps = async () => {
           String(track.duration / 60).substring(0, indexAuxDuration + 3)
         ).toFixed(2)
         ).replace('.', ':'),
-      image: track.album.cover_medium,
+      image_medium: track.album.cover_medium,
+      image_big: track.album.cover_xl,
       preview: track.preview
     }
   })
@@ -142,6 +150,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       initialTracks
     },
-    revalidate: 60 * 60 * 1, // 1 hour
+    revalidate: 60 * 60 * 12, // 1 hour
   }
 }
