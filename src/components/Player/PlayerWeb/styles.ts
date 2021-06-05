@@ -11,10 +11,16 @@ interface FlexProps {
 export const Flex = styled.div<FlexProps>`
   width: 100vw;
   height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+
   position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(29, 31, 62, 0.97);
   transition: transform 600ms;
   transform: translateY(100vh);
 
@@ -29,13 +35,51 @@ interface ImageProps {
   src: string;
 }
 
-export const BigImage = styled.div<ImageProps>``;
+export const BigImage = styled.div<ImageProps>`
+  width: 30vw;
+  height: 30vw;
+  background: url(${props => props.src});
+  background-size: cover;
+  border-radius: 0.5rem;
+`;
 
-export const LinkDeezer = styled.a``;
+export const VStackInfoMaximized = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 0.1rem solid #fff;
+  padding: 4rem 3rem;
+
+  p:nth-child(1) {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  p:nth-child(2) {
+    margin-top: 0.2rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+
+  & > a {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 2.5rem;
+    color: #fff;
+    background: rgb(92,32,166);
+    background: linear-gradient(45deg, rgba(92,32,166,1) 0%, rgba(181,114,216,1) 100%);
+    border-radius: 0.25rem;
+
+    svg {
+      font-size: 1.5rem;
+    }
+  }
+`;
 
 export const Footer = styled.div`
   width: 100vw;
-  height: 4.5rem;
+  height: 5rem;
   display: flex;
   align-items: center;
 
@@ -116,6 +160,16 @@ export const ButtonMinimizeMaximize = styled.button<ButtonMinimizeMaximizeProps>
 export const HStackTimeTrack = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.3rem;
+  position: relative;
+
+  p:nth-child(1) {
+    position: absolute;
+  }
+
+  p:nth-child(2) {
+    margin-left: 2.5rem;
+  }  
 
   p {
     font-size: 0.75rem;
@@ -138,7 +192,7 @@ export const BoxImage = styled.div<ImageProps>`
   border-radius: 0.25rem;
 `;
 
-export const VStack = styled.div`
+export const VStackInfoMinimized = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

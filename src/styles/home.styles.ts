@@ -133,9 +133,10 @@ export const CarouselItem = styled.button<CarouselItemProps>`
 export const CustomIndicator = styled.div`
   position: absolute;
   display: none;
-  width: 3rem;
+  width: 2.5rem;
   height: 0.25rem;
   background: rgb(92,32,166);
   background: linear-gradient(90deg, rgba(92,32,166,1) 0%, rgba(181,114,216,1) 100%);
+  border-radius: 0.2rem;
   bottom: -1rem;
 `;
