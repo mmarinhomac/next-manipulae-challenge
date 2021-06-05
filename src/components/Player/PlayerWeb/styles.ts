@@ -20,8 +20,8 @@ export const Flex = styled.div<FlexProps>`
   position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(29, 31, 62, 0.97);
-  transition: transform 600ms;
+  background: rgba(29, 31, 62, 0.98);
+  transition: transform 400ms;
   transform: translateY(100vh);
 
   ${props => 
@@ -132,7 +132,7 @@ interface ButtonsActionProps {
   enabledChangeTrack: string
 }
 
-export const ButtonGoBackTrack = styled.button<ButtonsActionProps>`
+export const ButtonGoPreviousTrack = styled.button<ButtonsActionProps>`
   svg {
     font-size: 1.2rem;
     ${props =>

@@ -21,7 +21,7 @@ import {
   Footer,
   ProgressBarTrack,
   StackActions,
-  ButtonGoBackTrack,
+  ButtonGoPreviousTrack,
   ButtonPlayTrack,
   ButtonGoNextTrack,
   ButtonMinimizeMaximize,
@@ -89,11 +89,6 @@ export function PlayerWeb() {
     }
   }
 
-  // Development
-  useEffect(() => {
-    audioRef.current.muted = true;
-  }, [audioRef]);
-
   useEffect(() => {
     audioRef.current.src = player.track.preview;
     audioRef.current.play();
@@ -160,13 +155,13 @@ export function PlayerWeb() {
         </ProgressBarTrack>
 
         <StackActions>
-          <ButtonGoBackTrack 
+          <ButtonGoPreviousTrack 
             type="button" 
             onClick={handlePreviousTrack}
             enabledChangeTrack={enabledChangeTrack}
           >
             <IoMdSkipBackward />
-          </ButtonGoBackTrack>
+          </ButtonGoPreviousTrack>
           <ButtonPlayTrack 
             type="button" 
             onClick={handlePlayPause}
