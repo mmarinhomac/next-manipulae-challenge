@@ -18,11 +18,17 @@ interface ImageProps {
   src: string;
 }
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+`;
 
 export const Flex = styled.div<FlexProps>`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   padding: 2rem;
 
   display: flex;

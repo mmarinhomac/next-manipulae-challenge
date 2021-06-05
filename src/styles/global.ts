@@ -7,6 +7,12 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  :focus {
+    outline: 0;
+    outline-color: transparent;
+    outline-style: none;
+  }
+
   html {
     font-size: 100%;
   }
