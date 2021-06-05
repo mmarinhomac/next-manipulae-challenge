@@ -1,6 +1,5 @@
 export enum ActionTypes {
-  addTrackToFavorite = 'ADD_TRACK_TO_FAVORITE',
-  removeTrackToFavorite = 'REMOVE_TRACK_TO_FAVORITE'
+  addTracksToPlaylist = 'ADD_TRACKS_TO_PLAYLIST'
 }
 
 export interface ITrack {
@@ -13,6 +12,6 @@ export interface ITrack {
   preview: string;
 }
 
-export interface IFavoriteTracksState {
+export interface ITracksState {
   data: ITrack[];
 }

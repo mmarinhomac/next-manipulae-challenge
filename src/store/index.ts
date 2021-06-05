@@ -4,13 +4,15 @@ import createSagaMiddleware from 'redux-saga';
 
 import { IFavoriteTracksState } from './modules/favorites/types';
 import { IPlayerState } from './modules/player/types';
+import { ITracksState } from './modules/tracks/types';
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
 export interface IState {
   favorites: IFavoriteTracksState,
-  player: IPlayerState
+  player: IPlayerState,
+  tracks: ITracksState
 }
 
 const sagaMiddleware = createSagaMiddleware();

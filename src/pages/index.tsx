@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
@@ -15,6 +15,8 @@ import { IState } from '../store';
 import { ITrack } from '../store/modules/favorites/types';
 import { IPlayerState } from '../store/modules/player/types';
 
+import { addTracksToPlaylist } from '../store/modules/tracks/actions';
+
 import { 
   Container, 
   ContainerAlignContent, 
@@ -25,6 +27,8 @@ import {
 } from '../styles/home.styles';
 
 export default function Home({ initialTracks }) {
+  const dispatch = useDispatch();
+
   const favorites = useSelector<IState, ITrack[]>(state => state.favorites.data);
   const player = useSelector<IState, IPlayerState>(state => state.player);
 
@@ -69,6 +73,16 @@ export default function Home({ initialTracks }) {
       setInitialDataTracks(time);
     }
   }
+
+  useEffect(() => {
+    if (searchData) {
+      dispatch(addTracksToPlaylist(searchData));
+    } else if (menu === 'most_popular') {
+      dispatch(addTracksToPlaylist(initialTracks));
+    } else {
+      dispatch(addTracksToPlaylist(favorites));
+    }
+  }, [menu, searchData]);
 
   return (
     <Container>

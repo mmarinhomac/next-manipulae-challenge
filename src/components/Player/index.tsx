@@ -39,7 +39,7 @@ export function Player() {
   return (
     <Container>
       {!wideVersion && <PlayerMobile />}
-      {wideVersion && <PlayerWeb track={player.track} />}
+      {wideVersion && <PlayerWeb />}
     </Container>
   );
 }

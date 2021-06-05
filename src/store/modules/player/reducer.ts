@@ -9,7 +9,8 @@ const INITIAL_STATE: IPlayerState = {
     title: '',
     artist: '',
     duration: 0,
-    image: '',
+    image_medium: '',
+    image_big: '',
     preview: ''
   },
   status: 'closed'
@@ -20,6 +21,7 @@ const player: Reducer<IPlayerState> = (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case ActionTypes.openPlayerSuccess: {
         const { track } = action.payload;
+        draft.status = 'closed';
         draft.track = track;
         draft.status = 'opened';
 

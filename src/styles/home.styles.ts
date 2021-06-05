@@ -4,7 +4,7 @@ export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 6rem 2rem;
 `;
 
 export const ContainerAlignContent = styled.section`

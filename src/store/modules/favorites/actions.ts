@@ -1,8 +1,8 @@
-import { ITrack } from "./types";
+import { ActionTypes, ITrack } from "./types";
 
 export function addTrackToFavorite(track: ITrack) {
   return {
-    type: 'ADD_TRACK_TO_FAVORITE',
+    type: ActionTypes.addTrackToFavorite,
     payload: {
       track
     }
@@ -11,7 +11,7 @@ export function addTrackToFavorite(track: ITrack) {
 
 export function removeTrackToFavorite(track: ITrack) {
   return {
-    type: 'REMOVE_TRACK_TO_FAVORITE',
+    type: ActionTypes.removeTrackToFavorite,
     payload: {
       track
     }
