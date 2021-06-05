@@ -1,4 +1,5 @@
-import { ActionTypes, ITrack } from "./types";
+import { ITrack } from "../tracks/types";
+import { ActionTypes } from "./types";
 
 export function addTrackToFavorite(track: ITrack) {
   return {

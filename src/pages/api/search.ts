@@ -23,7 +23,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           ).replace('.', ':'),
         image_medium: result.album.cover_medium,
         image_big: result.album.cover_xl,
-        preview: result.preview
+        preview: result.preview,
+        link: result.link
       }
     });
 

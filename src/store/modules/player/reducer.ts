@@ -11,7 +11,8 @@ const INITIAL_STATE: IPlayerState = {
     duration: 0,
     image_medium: '',
     image_big: '',
-    preview: ''
+    preview: '',
+    link: ''
   },
   status: 'closed'
 }

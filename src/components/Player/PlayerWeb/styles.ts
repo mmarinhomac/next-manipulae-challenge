@@ -82,6 +82,7 @@ export const Footer = styled.div`
   height: 5rem;
   display: flex;
   align-items: center;
+  padding: 0 3rem;
 
   position: absolute;
   bottom: 0;
@@ -91,9 +92,34 @@ export const Footer = styled.div`
   box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
   -webkit-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
   -moz-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
-
-  padding: 0 3rem;
   z-index: 10;
+`;
+
+interface ProgressBarTrackProps {
+  progress: number;
+}
+
+export const ProgressBarTrack = styled.div<ProgressBarTrackProps>`
+  width: 100%;
+  height: 0.1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  & > div {
+    width: 0%;
+    height: 100%;
+    background: rgb(95,22,188);
+    background: linear-gradient(90deg, rgba(95,22,188,1) 0%, rgba(163,56,224,1) 50%, rgba(224,90,247,1) 100%);
+    border-radius: 0.25rem;
+    transition: width 600ms;
+
+    ${props => 
+      props.progress &&
+      css`
+        width: ${props.progress}%;
+      `}
+  }
 `;
 
 export const StackActions = styled.div`

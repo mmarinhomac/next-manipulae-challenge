@@ -12,7 +12,7 @@ import { TrackList } from '../components/TrackList';
 import { Player } from '../components/Player';
 
 import { IState } from '../store';
-import { ITrack } from '../store/modules/favorites/types';
+import { ITrack } from '../store/modules/tracks/types';
 import { IPlayerState } from '../store/modules/player/types';
 
 import { addTracksToPlaylist } from '../store/modules/tracks/actions';
@@ -156,7 +156,8 @@ export const getStaticProps: GetStaticProps = async () => {
         ).replace('.', ':'),
       image_medium: track.album.cover_medium,
       image_big: track.album.cover_xl,
-      preview: track.preview
+      preview: track.preview,
+      link: track.link
     }
   })
 

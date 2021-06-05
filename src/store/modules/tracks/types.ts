@@ -10,6 +10,7 @@ export interface ITrack {
   image_medium: string;
   image_big: string;
   preview: string;
+  link: string;
 }
 
 export interface ITracksState {

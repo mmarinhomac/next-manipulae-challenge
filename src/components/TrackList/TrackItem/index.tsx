@@ -8,7 +8,7 @@ import { removeTrackToFavorite } from '../../../store/modules/favorites/actions'
 import { openPlayerRequest } from '../../../store/modules/player/actions';
 
 import { IState } from '../../../store';
-import { ITrack } from '../../../store/modules/favorites/types';
+import { ITrack } from '../../../store/modules/tracks/types';
 
 interface TrackItemProps {
   track: ITrack;

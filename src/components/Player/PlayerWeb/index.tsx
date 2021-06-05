@@ -18,7 +18,8 @@ import {
   Flex,
   BigImage,
   VStackInfoMaximized,
-  Footer, 
+  Footer,
+  ProgressBarTrack,
   StackActions,
   ButtonGoBackTrack,
   ButtonPlayTrack,
@@ -35,8 +36,6 @@ export function PlayerWeb() {
   const tracks = useSelector<IState, ITrack[]>(state => state.tracks.data);
 
   const audioRef = useRef(null);
-  // Development
-  // audioRef.current.muted = true;
 
   const [currentTrack, setCurrentTrack] = useState(player.track);
   const [playTrack, setPlayTrack] = useState(true);
@@ -44,6 +43,7 @@ export function PlayerWeb() {
   const [maximizeView, setMaximizeView] = useState(false);
   const [oldEventsInstances, setOldEventsInstances] = useState<OldEventsInstancesProps[]>([]);
   const [currentTimeTrack, setCurrentTimeTrack] = useState(null);
+  const [progressBar, setProgressBar] = useState(0);
 
   function handlePreviousTrack() {
     const index = tracks.indexOf(currentTrack) - 1;
@@ -52,6 +52,7 @@ export function PlayerWeb() {
       audioRef.current.src = previous.preview;
       audioRef.current.play();
       setCurrentTrack(tracks[index]);
+      setPlayTrack(true);
     }
   }
 
@@ -71,6 +72,7 @@ export function PlayerWeb() {
       audioRef.current.src = next.preview;
       audioRef.current.play();
       setCurrentTrack(tracks[index]);
+      setPlayTrack(true);
     } else if (audioRef.current.paused) {
       setPlayTrack(false);
     }
@@ -81,9 +83,16 @@ export function PlayerWeb() {
       const time = moment().minutes(0)
         .seconds(Math.floor(audioRef.current.currentTime))
         .format('mm:ss');
+      const progress = (Math.floor(audioRef.current.currentTime) / 30) * 100;
       setCurrentTimeTrack(time);
+      setProgressBar(progress);
     }
   }
+
+  // Development
+  useEffect(() => {
+    audioRef.current.muted = true;
+  }, [audioRef]);
 
   useEffect(() => {
     audioRef.current.src = player.track.preview;
@@ -138,7 +147,7 @@ export function PlayerWeb() {
         <VStackInfoMaximized>
           <p>{currentTrack.title}</p>
           <p>{currentTrack.artist}</p>
-          <a href={currentTrack.preview} target="_blank">
+          <a href={currentTrack.link} target="_blank">
             Access the full song
             <MdKeyboardArrowRight />
           </a>
@@ -146,6 +155,10 @@ export function PlayerWeb() {
       </Flex>
 
       <Footer>
+        <ProgressBarTrack progress={progressBar}>
+          <div />
+        </ProgressBarTrack>
+
         <StackActions>
           <ButtonGoBackTrack 
             type="button" 
