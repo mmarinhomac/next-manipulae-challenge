@@ -87,7 +87,6 @@ export default function Home({ initialTracks }) {
   }, [menu, searchData]);
   
   useEffect(() => {
-    console.log(player.status);
     if (player.status === 'opened' || player.status === 'preview_failure') {
       setIsOpenPlayer(true);
     }
@@ -97,7 +96,7 @@ export default function Home({ initialTracks }) {
         setIsOpenPlayer(false);
         dispatch(closePlayer());
         clearTimeout(time);
-      }, 3000);
+      }, 3200);
     }
   }, [player]);
 
