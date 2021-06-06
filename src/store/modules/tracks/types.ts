@@ -6,7 +6,7 @@ export interface ITrack {
   id: number;
   title: string;
   artist: string;
-  duration: number;
+  duration: string;
   image_medium: string;
   image_big: string;
   preview: string;
