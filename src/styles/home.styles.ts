@@ -13,6 +13,15 @@ interface CarouselItemProps {
   optionMenu: string;
 }
 
+const appearContainer = keyframes`
+  from {
+    transform: translateY(100vw);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+
 const loadingSvg = keyframes`
   from {
     transform: rotate(0deg);
@@ -27,6 +36,7 @@ export const Container = styled.main`
   align-items: center;
   justify-content: center;
   padding: 3rem 2rem 6rem 2rem;
+  animation: ${appearContainer} 2s;
 `;
 
 export const ContainerAlignContent = styled.section`
