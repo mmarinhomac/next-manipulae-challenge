@@ -8,7 +8,7 @@ const INITIAL_STATE: IPlayerState = {
     id: 0,
     title: '',
     artist: '',
-    duration: 0,
+    duration: '',
     image_medium: '',
     image_big: '',
     preview: '',
