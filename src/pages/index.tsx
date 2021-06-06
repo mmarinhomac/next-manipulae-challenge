@@ -43,7 +43,7 @@ export default function Home({ initialTracks }) {
   function handleSearch(evt) {
     setLoading(true);
     const value = evt.target.value;
-    // Clear old times instances
+    
     if (searchTimeInstance !== null) {
       clearTimeout(searchTimeInstance);
     }
@@ -51,7 +51,6 @@ export default function Home({ initialTracks }) {
       clearTimeout(initialDataTracks);
     }
 
-    // Validate value, length and time for search or go back initial tracks
     if (value) {
       if (value.length >= 3) {
         const time = setTimeout(async () => {
@@ -158,13 +157,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const initialTracks = response.data.tracks.data.map(track => {
     const indexAuxDuration = String(track.duration / 60).indexOf('.');
-    const limit = String(track.title).indexOf(' ') === -1 ? 10 : 30;
-    const titleValidated = track.title.length > limit ? 
-      String(track.title).substring(0, limit) + '...' :
-      track.title;
+
     return {
       id: track.id,
-      title: titleValidated,
+      title: track.title,
       artist: track.artist.name,
       duration: String(Number(
           String(track.duration / 60).substring(0, indexAuxDuration + 3)

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 interface FlexProps {
   maximizeView: boolean
@@ -10,6 +10,10 @@ interface ProgressBarTrackProps {
   progress: number;
 }
 
+interface VStackInfoMinimizedProps {
+  titleAuxSize: number;
+}
+
 interface ButtonsActionProps {
   enabledChangeTrack: string
 }
@@ -17,6 +21,18 @@ interface ButtonsActionProps {
 interface ImageProps {
   src: string;
 }
+
+const slideTitleAnimation = (size) => keyframes`
+  0% {
+    transform: translate(0);
+  }
+  30% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(-${size}px);
+  }
+`;
 
 export const Container = styled.div`
   height: 100%;
@@ -276,14 +292,20 @@ export const BoxImage = styled.div<ImageProps>`
   border-radius: 0.25rem;
 `;
 
-export const VStackInfoMinimized = styled.div`
+export const VStackInfoMinimized = styled.div<VStackInfoMinimizedProps>`
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
 
   p:nth-child(1) {
+    ${props =>
+      props.titleAuxSize !== 0 &&
+      css`
+        animation: ${slideTitleAnimation(props.titleAuxSize)} 5s linear infinite;
+      `}
     white-space: nowrap;
     font-size: 0.95rem;
     font-weight: 600;

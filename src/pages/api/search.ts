@@ -12,13 +12,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const isTestTitle = result.title.match('test');
       
       const indexAuxDuration = String(result.duration / 60).indexOf('.');
-      const limit = String(result.title).indexOf(' ') === -1 ? 10 : 30;
-      const titleValidated = result.title.length > limit ? 
-        String(result.title).substring(0, limit) + '...' :
-        result.title;
+
       return {
         id: result.id,
-        title: titleValidated,
+        title: result.title,
         artist: result.artist.name,
         duration: String(Number(
             String(result.duration / 60).substring(0, indexAuxDuration + 3)

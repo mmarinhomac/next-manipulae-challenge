@@ -42,6 +42,8 @@ export function PlayerMobile() {
   const tracks = useSelector<IState, ITrack[]>(state => state.tracks.data);
 
   const audioRef = useRef(null);
+  const titleFatherRef = useRef(null);
+  const titleRef = useRef(null);
 
   const [currentTrack, setCurrentTrack] = useState(player.track);
   const [playTrack, setPlayTrack] = useState(true);
@@ -50,6 +52,7 @@ export function PlayerMobile() {
   const [oldEventsInstances, setOldEventsInstances] = useState<OldEventsInstancesProps[]>([]);
   const [currentTimeTrack, setCurrentTimeTrack] = useState(null);
   const [progressBar, setProgressBar] = useState(0);
+  const [titleAuxSize, setTitleAuxSize] = useState(0);
 
   function handlePreviousTrack() {
     const index = tracks.indexOf(currentTrack) - 1;
@@ -140,6 +143,15 @@ export function PlayerMobile() {
     }
   }, [currentTrack]);
 
+  useEffect(() => {
+    const sizeDifference = titleRef.current.offsetWidth - titleFatherRef.current.offsetWidth;
+    if (sizeDifference < 0) {
+      setTitleAuxSize(0);
+    } else {
+      setTitleAuxSize(sizeDifference);
+    }
+  }, [titleFatherRef.current, titleRef.current]);
+
   return (
     <Container>
       <audio ref={audioRef} preload="auto"></audio>
@@ -211,8 +223,8 @@ export function PlayerMobile() {
           onClick={() => setMaximizeView(!maximizeView)}
         >
           <BoxImage src={currentTrack.image_medium} />
-          <VStackInfoMinimized>
-            <p>{currentTrack.title}</p>
+          <VStackInfoMinimized ref={titleFatherRef} titleAuxSize={titleAuxSize}>
+            <p ref={titleRef}>{currentTrack.title}</p>
             <p>{currentTrack.artist}</p>
           </VStackInfoMinimized>
         </ButtonMaximizePlayer>

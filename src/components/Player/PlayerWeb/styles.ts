@@ -1,12 +1,26 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
-  z-index: 10;
-`;
-
 interface FlexProps {
   maximizeView: boolean
 }
+
+interface ImageProps {
+  src: string;
+}
+
+interface ProgressBarTrackProps {
+  progress: number;
+}
+
+interface ButtonsActionProps {
+  enabledChangeTrack: string
+}
+
+interface ButtonMinimizeMaximizeProps extends FlexProps {}
+
+export const Container = styled.div`
+  z-index: 10;
+`;
 
 export const Flex = styled.div<FlexProps>`
   width: 100vw;
@@ -30,10 +44,6 @@ export const Flex = styled.div<FlexProps>`
       transform: translateY(0);
     `}
 `;
-
-interface ImageProps {
-  src: string;
-}
 
 export const BigImage = styled.div<ImageProps>`
   width: 30vw;
@@ -95,10 +105,6 @@ export const Footer = styled.div`
   z-index: 10;
 `;
 
-interface ProgressBarTrackProps {
-  progress: number;
-}
-
 export const ProgressBarTrack = styled.div<ProgressBarTrackProps>`
   width: 100%;
   height: 0.1rem;
@@ -128,10 +134,6 @@ export const StackActions = styled.div`
   gap: 2.5rem;
 `;
 
-interface ButtonsActionProps {
-  enabledChangeTrack: string
-}
-
 export const ButtonGoPreviousTrack = styled.button<ButtonsActionProps>`
   svg {
     font-size: 1.2rem;
@@ -159,8 +161,6 @@ export const ButtonGoNextTrack = styled.button<ButtonsActionProps>`
       `}
   }
 `;
-
-interface ButtonMinimizeMaximizeProps extends FlexProps {}
 
 export const ButtonMinimizeMaximize = styled.button<ButtonMinimizeMaximizeProps>`
   width: 100%;

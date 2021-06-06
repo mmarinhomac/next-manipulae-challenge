@@ -1,5 +1,27 @@
 import styled, { css, keyframes } from 'styled-components';
 
+interface InputBoxProps {
+  isLoading: boolean;
+}
+
+interface CarouselMenuProps {
+  appear: boolean;
+}
+
+interface CarouselItemProps {
+  isActive: string;
+  optionMenu: string;
+}
+
+const loadingSvg = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 export const Container = styled.main`
   display: flex;
   align-items: center;
@@ -34,19 +56,6 @@ export const ContainerAlignContent = styled.section`
         color: #A0AEC0;
       }
     }
-  }
-`;
-
-interface InputBoxProps {
-  isLoading: boolean;
-}
-
-const loadingSvg = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 `;
 
@@ -96,10 +105,6 @@ export const InputBox = styled.div<InputBoxProps>`
   }
 `;
 
-interface CarouselMenuProps {
-  appear: boolean;
-}
-
 export const CarouselMenu = styled.div<CarouselMenuProps>`
   margin-bottom: 2rem;
   display: inline-flex;
@@ -109,11 +114,6 @@ export const CarouselMenu = styled.div<CarouselMenuProps>`
       display: none;
     `}
 `;
-
-interface CarouselItemProps {
-  isActive: string;
-  optionMenu: string;
-}
 
 export const CarouselItem = styled.button<CarouselItemProps>`
   display: flex;

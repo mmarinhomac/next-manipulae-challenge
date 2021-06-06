@@ -1,5 +1,18 @@
 import styled, { css, keyframes } from 'styled-components';
 
+interface ButtonFavoriteProps {
+  isFavorite: boolean;
+}
+
+const favoriteSelected = keyframes`
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(1.5, 1.5);
+  }
+`;
+
 export const TrackItemBase = styled.div`
   width: 100%;
   height: 6rem;
@@ -20,6 +33,7 @@ export const ButtonStartPlayer = styled.button`
 
   & > div {
     width: 100%;
+    max-width: 52.5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -29,6 +43,7 @@ export const ButtonStartPlayer = styled.button`
 
 export const TrackInfo = styled.div`
   max-width: 98%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -56,19 +71,6 @@ export const TrackAuxInfo = styled.div`
     margin-left: 1rem;
     font-size: 1rem;
     font-weight: 600;
-  }
-`;
-
-interface ButtonFavoriteProps {
-  isFavorite: boolean;
-}
-
-const favoriteSelected = keyframes`
-  from {
-    transform: scale(1, 1);
-  }
-  to {
-    transform: scale(1.5, 1.5);
   }
 `;
 
