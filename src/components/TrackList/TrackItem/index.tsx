@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
@@ -27,7 +27,13 @@ export function TrackItem({ track }: TrackItemProps) {
   
   const favorites = useSelector<IState, ITrack[]>(state => state.favorites.data);
 
+  const TrackItemBaseRef = useRef(null);
+  const ButtonStartPlayerRef = useRef(null);
+  const ButtonFavoriteRef  = useRef(null);
+  const TrackAuxInfoRef = useRef(null);
+
   const [favorite, setFavorite] = useState(false);
+  const [maxWidthAuxInfo, setMaxWidthAuxInfo] = useState(0);
 
   const handleFavorite = useCallback(() => {
     if (!favorite) {
@@ -49,10 +55,26 @@ export function TrackItem({ track }: TrackItemProps) {
       setFavorite(false);
     }
   }, [favorites]);
+
+  useEffect(() => {
+    if (TrackItemBaseRef.current && ButtonStartPlayerRef.current && 
+      TrackAuxInfoRef.current && ButtonFavoriteRef.current) {
+      const calc = TrackItemBaseRef.current.offsetWidth - 
+        TrackAuxInfoRef.current.offsetWidth - 
+        ButtonFavoriteRef.current.offsetWidth - 
+        (ButtonStartPlayerRef.current.offsetHeight * 0.7);
+      setMaxWidthAuxInfo(calc);
+    }
+  }, [TrackItemBaseRef.current, ButtonStartPlayerRef.current, TrackAuxInfoRef.current, ButtonFavoriteRef.current]);
   
   return (
-    <TrackItemBase>
-        <ButtonStartPlayer type="button" onClick={handlePlayer}>
+    <TrackItemBase ref={TrackItemBaseRef}>
+        <ButtonStartPlayer 
+          type="button" 
+          ref={ButtonStartPlayerRef} 
+          maxWidthAuxInfo={maxWidthAuxInfo}
+          onClick={handlePlayer}
+        >
           <img src={track.image_medium} alt="trackImage" />
 
           <div>
@@ -61,12 +83,17 @@ export function TrackItem({ track }: TrackItemProps) {
               <p>by: {track.artist}</p>
             </TrackInfo>
 
-            <TrackAuxInfo>
+            <TrackAuxInfo ref={TrackAuxInfoRef}>
               <span>{track.duration}</span>
             </TrackAuxInfo>
           </div>
         </ButtonStartPlayer>
-        <ButtonFavorite type="button" isFavorite={!!favorite} onClick={handleFavorite}>
+        <ButtonFavorite 
+          type="button" 
+          ref={ButtonFavoriteRef} 
+          isFavorite={!!favorite} 
+          onClick={handleFavorite}
+        >
           {!favorite && <MdFavoriteBorder />}
           {favorite && <MdFavorite />}
         </ButtonFavorite>

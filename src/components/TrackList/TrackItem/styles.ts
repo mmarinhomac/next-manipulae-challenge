@@ -1,5 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
 
+interface ButtonStartPlayerProps {
+  maxWidthAuxInfo: number;
+}
+
 interface ButtonFavoriteProps {
   isFavorite: boolean;
 }
@@ -20,7 +24,7 @@ export const TrackItemBase = styled.div`
   align-items: center;
 `;
 
-export const ButtonStartPlayer = styled.button`
+export const ButtonStartPlayer = styled.button<ButtonStartPlayerProps>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -33,16 +37,20 @@ export const ButtonStartPlayer = styled.button`
 
   & > div {
     width: 100%;
-    max-width: 52.5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-left: 1.25rem;
+    ${props => 
+      props.maxWidthAuxInfo !== 0 &&
+      css`
+        max-width: calc(${props.maxWidthAuxInfo}px);
+      `}
   }
 `;
 
 export const TrackInfo = styled.div`
-  max-width: 98%;
+  width: 90%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
