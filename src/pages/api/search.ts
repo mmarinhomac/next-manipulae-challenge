@@ -7,7 +7,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const response = await deezer.get(`/search?q=${q}`);
     
-    const data = response.data.data.map((result, index) => {
+    const data = response.data.data.map(result => {
+      // For Test Middleware Validate Preview URL
+      const isTestTitle = result.title.match('test');
+      
       const indexAuxDuration = String(result.duration / 60).indexOf('.');
       const limit = String(result.title).indexOf(' ') === -1 ? 10 : 30;
       const titleValidated = result.title.length > limit ? 
@@ -23,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           ).replace('.', ':'),
         image_medium: result.album.cover_medium,
         image_big: result.album.cover_xl,
-        preview: result.preview,
+        preview: isTestTitle ? result.preview + 'test' : result.preview,
         link: result.link
       }
     });

@@ -221,9 +221,9 @@ export const Footer = styled.div<FooterProps>`
   left: 0;
 
   background: #1D1F3E;
-  box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
-  -webkit-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
-  -moz-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.05);
+  box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.1);
+  -webkit-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.1);
+  -moz-box-shadow: 0px -2px 8px 0px rgba(255,255,255,0.1);
   z-index: 10;
   transition: transform 400ms;
   transform: translateY(5rem);

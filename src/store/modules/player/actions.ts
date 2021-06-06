@@ -24,3 +24,9 @@ export function openPlayerFailure() {
     type: ActionTypes.openPlayerFailure,
   }
 }
+
+export function closePlayer() {
+  return {
+    type: ActionTypes.closePlayer,
+  }
+}

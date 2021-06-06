@@ -33,6 +33,11 @@ const player: Reducer<IPlayerState> = (state = INITIAL_STATE, action) => {
 
         break;
       }
+      case ActionTypes.closePlayer: {
+        draft.status = 'closed';
+
+        break;
+      }
       default: {
         return state;
       }

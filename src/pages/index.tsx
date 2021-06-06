@@ -16,6 +16,7 @@ import { ITrack } from '../store/modules/tracks/types';
 import { IPlayerState } from '../store/modules/player/types';
 
 import { addTracksToPlaylist } from '../store/modules/tracks/actions';
+import { closePlayer } from '../store/modules/player/actions';
 
 import { 
   Container, 
@@ -37,6 +38,7 @@ export default function Home({ initialTracks }) {
   const [searchData, setSearchData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [menu, setMenu] = useState('most_popular');
+  const [isOpenPlayer, setIsOpenPlayer] = useState(false);
 
   function handleSearch(evt) {
     setLoading(true);
@@ -83,6 +85,21 @@ export default function Home({ initialTracks }) {
       dispatch(addTracksToPlaylist(favorites));
     }
   }, [menu, searchData]);
+  
+  useEffect(() => {
+    console.log(player.status);
+    if (player.status === 'opened' || player.status === 'preview_failure') {
+      setIsOpenPlayer(true);
+    }
+
+    if (player.status === 'preview_failure') {
+      const time = setTimeout(() => {
+        setIsOpenPlayer(false);
+        dispatch(closePlayer());
+        clearTimeout(time);
+      }, 3000);
+    }
+  }, [player]);
 
   return (
     <Container>
@@ -131,7 +148,7 @@ export default function Home({ initialTracks }) {
           }
         />
 
-        {player.status === 'opened' && <Player />}
+        {isOpenPlayer && <Player />}
       </ContainerAlignContent>
     </Container>
   )
@@ -140,7 +157,7 @@ export default function Home({ initialTracks }) {
 export const getStaticProps: GetStaticProps = async () => {
   const response = await deezer.get('/chart/tracks');
 
-  const initialTracks = response.data.tracks.data.map((track, index) => {
+  const initialTracks = response.data.tracks.data.map(track => {
     const indexAuxDuration = String(track.duration / 60).indexOf('.');
     const limit = String(track.title).indexOf(' ') === -1 ? 10 : 30;
     const titleValidated = track.title.length > limit ? 
