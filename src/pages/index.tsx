@@ -57,20 +57,20 @@ export default function Home({ initialTracks }) {
           const response = await next.get(`/search?q=${value}`);
           setSearchData(response.data);
           setLoading(false);
-        }, 1400);
+        }, 500);
         setSearchTimeInstance(time);
       } else {
         const time = setTimeout(async () => {
           setSearchData(null);
           setLoading(false);
-        }, 1400);
+        }, 500);
         setInitialDataTracks(time);
       }
     } else {
       const time = setTimeout(async () => {
         setSearchData(null);
         setLoading(false);
-      }, 1400);
+      }, 500);
       setInitialDataTracks(time);
     }
   }
