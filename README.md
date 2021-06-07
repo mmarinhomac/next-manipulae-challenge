@@ -1,5 +1,5 @@
 # Manipulaê Challenge [Music App](https://next-manipulae-challenge.vercel.app/)
-[![Preview](github/preview.png)](github/preview.mkv)
+![Preview](github/preview.png)
 <br>
 
 ## Desafio
@@ -58,9 +58,13 @@ Tive a ideia de corromper a url das músicas na pesquisa em que o título der ma
 
 ## Diferenciais
 
-PWA e Busca automatizada implementados. ✅
+- PWA e Busca automatizada implementados. ✅
 
-Quando usuário digita 3 caracteres ou mais e não há mais atividade por 500ms a busca é iniciada.
+- Quando usuário digita 3 caracteres ou mais e não há mais atividade por 500ms a busca é iniciada.
+
+- Usabilidade do Youtube Music, player nasce minimizado clique para maximizar.
+
+
 <br>
 
 ## Run Project
