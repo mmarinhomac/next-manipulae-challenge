@@ -1,5 +1,5 @@
 # Manipulaê Challenge [Music App](https://next-manipulae-challenge.vercel.app/)
-![Preview](public/preview.png)
+[![Preview](github/preview.png)](github/preview.mkv)
 <br>
 
 ## Desafio
@@ -40,7 +40,8 @@ Sempre há um momento em que simplesmente não é possível resolver um problema
 
 **\#6 .. Bugs:**
 
-De praxe... bugs, no caso só um e em ambiente de desenvolvimento, eu desconfio, mas não tenho certeza de que a configuração do PWA para NextJS pesa um pouco em desenvolvimento, seria melhor eu ter feito todo app e configurado PWA depois. 
+De praxe... bugs, no caso só um e em ambiente de desenvolvimento, eu desconfio, mas não tenho certeza de que a configuração do PWA para NextJS pesa um pouco em desenvolvimento, seria melhor eu ter feito todo app e configurado PWA depois.
+
 **Ocorrência:** a imagem da primeira faixa tocada assim que app é carregado fica piscando a partir das próximas faixas isso não ocorre e debugando pela extensão do React, o elemento não sofre alterações nas re-renderizações do React e em produção problema não ocorre.
 
 
@@ -58,6 +59,7 @@ Tive a ideia de corromper a url das músicas na pesquisa em que o título der ma
 ## Diferenciais
 
 PWA e Busca automatizada implementados. ✅
+
 Quando usuário digita 3 caracteres ou mais e não há mais atividade por 500ms a busca é iniciada.
 <br>
 
